@@ -1,0 +1,29 @@
+const express = require('express');
+const validate = require('express-validation');
+const controller = require('../../controllers/auth.controller');
+const { protect } = require('./../../middleware/auth');
+
+const {
+  login,
+  register,
+  me
+} = require('../../validations/auth.validation');
+
+const router = express.Router();
+
+router.route('/register')
+  .post(validate(register), controller.register);
+
+router.route('/login')
+  .post(validate(login), controller.login);
+
+router.route('/me')
+  .get(protect, controller.me);
+
+// router.route('/send-password-reset')
+//   .post(validate(sendPasswordReset), controller.sendPasswordReset);
+
+// router.route('/reset-password')
+//   .post(validate(passwordReset), controller.resetPassword);
+
+module.exports = router;
