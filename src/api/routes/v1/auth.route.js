@@ -5,8 +5,7 @@ const { protect } = require('./../../middleware/auth');
 
 const {
   login,
-  register,
-  me
+  register
 } = require('../../validations/auth.validation');
 
 const router = express.Router();

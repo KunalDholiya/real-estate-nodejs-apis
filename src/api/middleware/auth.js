@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const authService = require('../services/auth.service');
 
-exports.protect = async (req, res, next) => {
+exports.protect = (req, res, cb) => {
     let token;
 
     if (
@@ -21,7 +21,7 @@ exports.protect = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        await authService.getUserById(decoded.id, (err, data) => {
+        authService.getUserById(decoded.id, (err, data) => {
             if (err) {
                 console.error(err);
                 res.status(500).send({
@@ -30,16 +30,13 @@ exports.protect = async (req, res, next) => {
                 });
             } else { 
                 req.user = data;
-                next();
+                cb(null, true)
             }
         });
     } catch (err) {
-
-        console.log(err)
-
         res.status(401).send({
             success: false,
             data: 'Not authorized to access this route'
         });
     }
-};
+}

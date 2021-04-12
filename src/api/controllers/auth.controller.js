@@ -12,17 +12,17 @@ function JWTGenerate(id) {
     );
 }
 
-exports.register = async (req, res, next) => {
+exports.register = (req, res, next) => {
     const user = req.body;
 
     try {
-        await authService.createUser(user, (err, data) => {
+        authService.createAccount(user, (err, data) => {
             if (err) {
-                return next(err);
+                return res.status(500).send({ success: false, error: err });
             } else {
                 const generateToken = JWTGenerate(data.insertId);
                 res.status(httpStatus.CREATED);
-                return res.json({ token: generateToken });
+                return res.json({ success: true, token: generateToken });
             }
         });
     } catch (error) {
@@ -30,17 +30,17 @@ exports.register = async (req, res, next) => {
     }
 };
 
-exports.login = async (req, res, next) => {
+exports.login = (req, res, next) => {
     const user = req.body;
 
     try {
-        await authService.logIn(user, (err, data) => {
+        authService.logIn(user, (err, data) => {
             if (err) {
-                return next(err);
+                return res.status(500).send({ success: false, error: err });
             } else {
                 const generateToken = JWTGenerate(data.id);
                 res.status(httpStatus.CREATED);
-                return res.json({ token: generateToken, data });
+                return res.json({ success: true, token: generateToken, data });
             }
         });
     } catch (error) {
@@ -48,9 +48,9 @@ exports.login = async (req, res, next) => {
     }
 };
 
-exports.me = async (req, res, next) => {
+exports.me = (req, res, next) => {
     try {
-        return res.json({ data: req.user });
+        return res.json({ success: true, data: req.user });
     } catch (error) {
         return next(error);
     }

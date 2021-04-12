@@ -7,7 +7,6 @@ const cors = require('cors');
 const helmet = require('helmet');
 const routes = require('../api/routes/v1');
 const { logs } = require('./vars');
-const error = require('../api/middleware/error');
 
 const app = express();
 
@@ -25,12 +24,6 @@ app.use(helmet());
 app.use(cors());
 
 app.use('/api/v1', routes);
-
-app.use(error.converter);
-
-app.use(error.notFound);
-
-app.use(error.handler);
 
 
 app.get('*', (req, res) => res.status(404).send({
