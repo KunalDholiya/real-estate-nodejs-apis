@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const authService = require('../services/auth.service');
+const roles = require('../utils/roles.json')
 
 exports.protect = (req, res, cb) => {
     let token;
@@ -28,7 +29,7 @@ exports.protect = (req, res, cb) => {
                     success: false,
                     error: err
                 });
-            } else { 
+            } else {
                 req.user = data;
                 cb(null, true)
             }

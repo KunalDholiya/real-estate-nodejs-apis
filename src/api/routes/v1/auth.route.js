@@ -5,7 +5,8 @@ const { protect } = require('./../../middleware/auth');
 
 const {
   login,
-  register
+  register,
+  updateUser
 } = require('../../validations/auth.validation');
 
 const router = express.Router();
@@ -17,12 +18,12 @@ router.route('/login')
   .post(validate(login), controller.login);
 
 router.route('/me')
-  .get(protect, controller.me);
+  .get(protect('USER_ME'), controller.me);
 
-// router.route('/send-password-reset')
-//   .post(validate(sendPasswordReset), controller.sendPasswordReset);
+router.route('/user/:id')
+  .put(protect, validate(updateUser), controller.updateUser);
 
-// router.route('/reset-password')
-//   .post(validate(passwordReset), controller.resetPassword);
+router.route('/user')
+  .get(protect, controller.getUsers);
 
 module.exports = router;

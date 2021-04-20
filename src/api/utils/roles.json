@@ -1,0 +1,17 @@
+{
+    "owner": [
+        "ADD_USER",
+        "UPDATE_USER",
+        "DELETE_USER",
+        "LIST_USER",
+        "ADD_PROJECT",
+        "UPDATE_PROJECT",
+        "DELETE_PROJECT",
+        "LIST_PROJECT"
+    ],
+    "employee": [
+        "LIST_USER",
+        "UPDATE_USER",
+        "LIST_PROJECT"
+    ]
+}
