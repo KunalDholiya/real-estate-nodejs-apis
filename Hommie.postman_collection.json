@@ -1,0 +1,261 @@
+{
+	"info": {
+		"_postman_id": "72417e8a-0931-4518-941f-43f2a13b975e",
+		"name": "Hommie",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:3000/api/v1/auth/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"company_logo\": \"\",\n    \"owner_name\": \"Kunal D\",\n    \"company_name\": \"Orchid ORG\",\n    \"company_email\": \"orchid@org.io\",\n    \"company_website\": \"https://orchid.org\",\n    \"company_address\": \"company_address\",\n    \"password\": \"xnhv8477XI@#\",\n    \"role\": \"owner\",\n    \"company_phone_no\": \"2788994455\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/auth/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/api/v1/auth/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"orchid@org.io\",\n    \"password\": \"xnhv8477XI@#\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/api/v1/auth/me",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE4MDc5OTQ4LCJleHAiOjE2MjA2NzE5NDh9.GO5ckKWDZLWOMHTYIdd9m43hcL5KyEYndZMNkrdu_VU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1/auth/me",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/api/v1/team/add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE4NzUwOTAwLCJleHAiOjE2MTg4MzczMDB9.LTcwAB5VFrfnTl_WOnRJHI_6XQy0vD79P6o6WZrT1uI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Kunal\",\n    \"last_name\": \"Dholiya\",\n    \"email\": \"1122@acquire.io\",\n    \"password\": \"xnhv8477XI@#\",\n    \"role\": \"employee\",\n    \"phone_number\": \"7788994422\",\n    \"address\": \"abcd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/team",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"team"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/api/v1/project",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE5MjQwOTIzLCJleHAiOjE2MTkzMjczMjN9.1DQuWN3k3c0-CpYFJk_IeEJESDx9Y6kbcTQXhvIjMHU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"project_logo\": \"https://google.com\",\n        \"project_name\": \"Time squre I\",\n        \"project_address\": \"Thaltej\",\n        \"project_contact\": \"7788996655\",\n        \"project_email\": \"timesqure1@test.io\",\n        \"project_rera_number\": \"7788CC55\",\n        \"project_attachment\": [],\n        \"project_config\": {\n            \"tower_setup\": {\n                \"no_of_tower\": 8,\n                \"tower_details\": [\n                    { \n                        \"tower_number\": 1, \n                        \"tower_name\": \"A\", \n                        \"no_of_floor\": 12,\n                        \"floor_setting\": [\n                            { \"floor_number\": 1, \"flat_count\": 4 },\n                            { \"floor_number\": 2, \"flat_count\": 4 },\n                            { \"floor_number\": 3, \"flat_count\": 4 }\n                        ] \n                    },\n                    { \n                        \"tower_number\": 2, \n                        \"tower_name\": \"B\", \n                        \"no_of_floor\": 9,\n                        \"floor_setting\": [\n                            { \"floor_number\": 1, \"flat_count\": 6 },\n                            { \"floor_number\": 2, \"flat_count\": 6 },\n                            { \"floor_number\": 3, \"flat_count\": 6 }\n                        ] \n                    }\n                ]\n            }\n        }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/project",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"project"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/api/v1/project/",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE5MjQwOTIzLCJleHAiOjE2MTkzMjczMjN9.1DQuWN3k3c0-CpYFJk_IeEJESDx9Y6kbcTQXhvIjMHU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1/project/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"project",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/api/v1/project/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE5MjQwOTIzLCJleHAiOjE2MTkzMjczMjN9.1DQuWN3k3c0-CpYFJk_IeEJESDx9Y6kbcTQXhvIjMHU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1/project/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"project",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/api/v1/project/1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1/project/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"project",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
