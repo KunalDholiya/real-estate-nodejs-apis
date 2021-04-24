@@ -47,7 +47,6 @@ exports.createAccount = (data, cb) => {
     });
 }
 
-
 exports.createUser = (data, parent_id, cb) => {
 
     const rounds = env === 'development' ? 1 : 10;

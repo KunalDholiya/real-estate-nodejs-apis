@@ -18,7 +18,7 @@ router.route('/login')
   .post(validate(login), controller.login);
 
 router.route('/me')
-  .get(protect('USER_ME'), controller.me);
+  .get(protect, controller.me);
 
 router.route('/user/:id')
   .put(protect, validate(updateUser), controller.updateUser);
