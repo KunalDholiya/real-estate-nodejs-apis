@@ -96,3 +96,25 @@ exports.updateProject = (project_id, parent_id, data, cb) => {
         }
     })
 }
+
+exports.deleteProject = (project_id, parent_id, data, cb) => {
+    this.getProjectById(project_id, parent_id, (err, project_data) => {
+        if (err) {
+            return cb(err);
+        } else {
+            pool.query('UPDATE `projects` SET `status` = ? WHERE `id` = ? AND `parent_id` = ? AND `status` = ?',
+            [
+                'deleted',
+                project_id,
+                parent_id,
+                'active'
+            ], (err, updated) => {
+                if (err) {
+                    return cb(err);
+                } else {
+                    return cb(null, 'Project is deleted successfully!');
+                }
+            })
+        }
+    })
+}

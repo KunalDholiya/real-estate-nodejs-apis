@@ -46,3 +46,32 @@ CREATE TABLE `user` (
   `date_created` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `leads` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `parent_id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `first_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `mobile_number` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `inquiry_date` date DEFAULT NULL,
+  `followup_date` date DEFAULT NULL,
+  `site_visit_date` date DEFAULT NULL,
+  `source_of_promotion` varchar(45) DEFAULT NULL,
+  `lead_owner` varchar(45) DEFAULT NULL,
+  `lead_stage` enum('opportunity','customer','prospect','disqualified','invalid') DEFAULT NULL,
+  `address` text,
+  `alter_mobile_number` varchar(45) DEFAULT NULL,
+  `fax` varchar(45) DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `marriage_date` date DEFAULT NULL,
+  `social_media_links` text,
+  `company` varchar(45) DEFAULT NULL,
+  `website` varchar(45) DEFAULT NULL,
+  `notes` text,
+  `status` enum('active','deactive','deleted') DEFAULT 'active',
+  `date_updated` datetime DEFAULT CURRENT_TIMESTAMP,
+  `date_created` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

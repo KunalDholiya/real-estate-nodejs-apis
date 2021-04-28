@@ -62,7 +62,15 @@ exports.updateProjects = (req, res, next) => {
 
 exports.removeProject = (req, res, next) => {
     try {
-        
+        let project_id = req.params.id;
+
+        projectService.deleteProject(project_id, req.user.parent_id, req.body, (err, data) => {
+            if (err) {
+                return res.status(500).send({ success: false, error: err });
+            } else {
+                return res.json({ success: true, data });
+            }
+        });
     } catch (error) {
         return next(error);
     }
