@@ -68,7 +68,7 @@ exports.deleteLead = (req, res, next) => {
     try {
         let project_id = req.params.id;
 
-        leadService.deleteLead(project_id, req.user.parent_id, (err, data) => {
+        leadService.deleteLead(project_id, req.user.parent_id, req.user.id, (err, data) => {
             if (err) {
                 return res.status(500).send({ success: false, error: err });
             } else {
@@ -84,7 +84,7 @@ exports.leadStageChange = (req, res, next) => {
     try {
         let project_id = req.params.id;
 
-        leadService.leadStageChange(project_id, req.user.parent_id, req.body, (err, data) => {
+        leadService.leadStageChange(project_id, req.user.parent_id, req.user.id, req.body, (err, data) => {
             if (err) {
                 return res.status(500).send({ success: false, error: err });
             } else {

@@ -1,4 +1,5 @@
 const pool = require("./../../config/sql");
+const activityService = require("./activity.service");
 
 exports.getLeads = (parent_id, user_id, cb) => {
     pool.query(
@@ -75,12 +76,12 @@ exports.addLead = (data, parent_id, user_id, cb) => {
 };
 
 exports.updateProject = (lead_id, parent_id, data, cb) => {
-    this.getLeadById(lead_id, parent_id, (err, project_data) => {
+    this.getLeadById(lead_id, parent_id, (err, lead_data_old) => {
         if (err) {
             return cb(err);
         } else {
             pool.query(
-                "UPDATE `homie`.`leads` SET `first_name` = ?, `last_name` = ?, `mobile_number` = ?, `email` = ?, `inquiry_date` = ?, `followup_date` = ?, `site_visit_date` = ?, `source_of_promotion` = ?, `lead_owner` = ?, `lead_stage` = ?, `address` = ?, `alter_mobile_number` = ?, `fax` = ?, `birth_date` = ?, `marriage_date` = ?, `social_media_links` = ?, `company` = ?, `website` = ?, `notes` = ? WHERE `id` = ? AND `parent_id` = ?",
+                "UPDATE `leads` SET `first_name` = ?, `last_name` = ?, `mobile_number` = ?, `email` = ?, `inquiry_date` = ?, `followup_date` = ?, `site_visit_date` = ?, `source_of_promotion` = ?, `lead_owner` = ?, `lead_stage` = ?, `address` = ?, `alter_mobile_number` = ?, `fax` = ?, `birth_date` = ?, `marriage_date` = ?, `social_media_links` = ?, `company` = ?, `website` = ?, `notes` = ? WHERE `id` = ? AND `parent_id` = ?",
                 [
                     data.first_name,
                     data.last_name,
@@ -108,7 +109,22 @@ exports.updateProject = (lead_id, parent_id, data, cb) => {
                     if (err) {
                         return cb(err);
                     } else {
-                        return cb(null, "Lead updated successfully!");
+                        let activityData = {
+                            lead_id: lead_id,
+                            activity_type: 'lead_updated',
+                            activity_details: {
+                                lead_stage_before: lead_data_old,
+                                lead_stage_after: data
+                            }
+                        }
+
+                        activityService.addActivity(activityData, parent_id, user_id, (err, data) => {
+                            if (err) {
+                                return cb(err);
+                            } else {
+                                return cb(null, "Lead updated successfully!");
+                            }
+                        });
                     }
                 }
             );
@@ -116,7 +132,7 @@ exports.updateProject = (lead_id, parent_id, data, cb) => {
     });
 };
 
-exports.deleteLead = (lead_id, parent_id, cb) => {
+exports.deleteLead = (lead_id, parent_id, user_id, cb) => {
     this.getLeadById(lead_id, parent_id, (err, lead_data) => {
         if (err) {
             return cb(err);
@@ -128,7 +144,22 @@ exports.deleteLead = (lead_id, parent_id, cb) => {
                     if (err) {
                         return cb(err);
                     } else {
-                        return cb(null, "Lead is deleted successfully!");
+                        let activityData = {
+                            lead_id: lead_id,
+                            activity_type: 'lead_delete',
+                            activity_details: {
+                                lead_stage_before: lead_data.status,
+                                lead_stage_after: 'deleted'
+                            }
+                        }
+
+                        activityService.addActivity(activityData, parent_id, user_id, (err, data) => {
+                            if (err) {
+                                return cb(err);
+                            } else {
+                                return cb(null, "Lead is deleted successfully!");
+                            }
+                        });
                     }
                 }
             );
@@ -137,7 +168,7 @@ exports.deleteLead = (lead_id, parent_id, cb) => {
 };
 
 
-exports.leadStageChange = (lead_id, parent_id, data, cb) => {
+exports.leadStageChange = (lead_id, parent_id, user_id, data, cb) => {
     this.getLeadById(lead_id, parent_id, (err, lead_data) => {
         if (err) {
             return cb(err);
@@ -149,7 +180,23 @@ exports.leadStageChange = (lead_id, parent_id, data, cb) => {
                     if (err) {
                         return cb(err);
                     } else {
-                        return cb(null, "Lead updated successfully!");
+
+                        let activityData = {
+                            lead_id: lead_id,
+                            activity_type: 'lead_stage',
+                            activity_details: {
+                                lead_stage_before: lead_data.lead_stage,
+                                lead_stage_after: data.lead_stage
+                            }
+                        }
+
+                        activityService.addActivity(activityData, parent_id, user_id, (err, data) => {
+                            if (err) {
+                                return cb(err);
+                            } else {
+                                return cb(null, "Lead updated successfully!");
+                            }
+                        });
                     }
                 }
             );
