@@ -75,3 +75,15 @@ CREATE TABLE `leads` (
   `date_created` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `homie`.`activity_logs` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `parent_id` INT NOT NULL,
+  `lead_id` INT NOT NULL,
+  `activity_by` INT NOT NULL,
+  `activity_type` VARCHAR(45) NULL DEFAULT NULL,
+  `activity_details` JSON NULL DEFAULT NULL,
+  `status` ENUM('active', 'disable', 'deleted') NULL DEFAULT 'active',
+  `date_updated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));

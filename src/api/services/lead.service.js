@@ -116,7 +116,7 @@ exports.updateProject = (lead_id, parent_id, data, cb) => {
     });
 };
 
-exports.deleteProject = (lead_id, parent_id, data, cb) => {
+exports.deleteLead = (lead_id, parent_id, cb) => {
     this.getLeadById(lead_id, parent_id, (err, lead_data) => {
         if (err) {
             return cb(err);
@@ -129,6 +129,27 @@ exports.deleteProject = (lead_id, parent_id, data, cb) => {
                         return cb(err);
                     } else {
                         return cb(null, "Lead is deleted successfully!");
+                    }
+                }
+            );
+        }
+    });
+};
+
+
+exports.leadStageChange = (lead_id, parent_id, data, cb) => {
+    this.getLeadById(lead_id, parent_id, (err, lead_data) => {
+        if (err) {
+            return cb(err);
+        } else {
+            pool.query(
+                "UPDATE `leads` SET `lead_stage` = ? WHERE `id` = ? AND `parent_id` = ? AND `status` = ?",
+                [data.lead_stage, lead_id, parent_id, "active"],
+                (err, updated) => {
+                    if (err) {
+                        return cb(err);
+                    } else {
+                        return cb(null, "Lead updated successfully!");
                     }
                 }
             );
