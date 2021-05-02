@@ -16,9 +16,9 @@ exports.getLeads = (req, res, next) => {
 
 exports.getLeadById = (req, res, next) => {
     try {
-        let project_id = req.params.id;
+        let lead_id = req.params.id;
 
-        leadService.getLeadById(project_id, req.user.parent_id, (err, data) => {
+        leadService.getLeadById(lead_id, req.user.parent_id, (err, data) => {
             if (err) {
                 return res.status(500).send({ success: false, error: err });
             } else {
@@ -49,9 +49,9 @@ exports.addLead = (req, res, next) => {
 
 exports.updateLead = (req, res, next) => {
     try {
-        let project_id = req.params.id;
+        let lead_id = req.params.id;
 
-        leadService.updateLead(project_id, req.user.parent_id, req.body, (err, data) => {
+        leadService.updateLead(lead_id, req.user.parent_id, req.body, (err, data) => {
             if (err) {
                 return res.status(500).send({ success: false, error: err });
             } else {
@@ -66,9 +66,9 @@ exports.updateLead = (req, res, next) => {
 
 exports.deleteLead = (req, res, next) => {
     try {
-        let project_id = req.params.id;
+        let lead_id = req.params.id;
 
-        leadService.deleteLead(project_id, req.user.parent_id, req.user.id, (err, data) => {
+        leadService.deleteLead(lead_id, req.user.parent_id, req.user.id, (err, data) => {
             if (err) {
                 return res.status(500).send({ success: false, error: err });
             } else {
@@ -82,9 +82,9 @@ exports.deleteLead = (req, res, next) => {
 
 exports.leadStageChange = (req, res, next) => {
     try {
-        let project_id = req.params.id;
+        let lead_id = req.params.id;
 
-        leadService.leadStageChange(project_id, req.user.parent_id, req.user.id, req.body, (err, data) => {
+        leadService.leadStageChange(lead_id, req.user.parent_id, req.user.id, req.body, (err, data) => {
             if (err) {
                 return res.status(500).send({ success: false, error: err });
             } else {
