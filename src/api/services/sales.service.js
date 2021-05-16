@@ -29,6 +29,21 @@ exports.getSalesById = (sale_id, parent_id, cb) => {
     })
 }
 
+exports.getSalesByProjectId = (project_id, parent_id, cb) => {
+    pool.query('SELECT * FROM `sales` WHERE `project_id` = ? AND `parent_id` = ? AND `status` = ?', [project_id, parent_id, 'active'], (err, sale) => {
+        if (err) {
+            return cb(err);
+        } else {
+            if (sale.length > 0) {
+                sale = sale[0];
+                return cb(null, project);
+            } else {
+                return cb('Sale does not exist in system!');
+            }
+        }
+    })
+}
+
 exports.addSales = (data, parent_id, user_id, cb) => {
 
     pool.query("INSERT INTO `sales` (`parent_id`,`user_id`,`project_id`,`contact_id`,`lead_id`,`property`,`sales_type`,`purchase_date`,`total_amount`) VALUES (?,?,?,?,?,?,?,?,?)",

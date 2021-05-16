@@ -19,7 +19,7 @@ router.route('/:id')
 router.route('/lead/:id')
     .get(protect, controller.getEstimateByLead);
 
-router.route('/:id')
-    .post(protect, controller.removeEstimate);
+router.route('/delete/:id')
+    .put(protect, controller.removeEstimate);
 
 module.exports = router;

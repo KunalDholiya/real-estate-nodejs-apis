@@ -16,7 +16,7 @@ router.route('/')
 router.route('/:id')
     .get(protect, controller.getProjectById);
 
-router.route('/:id')
-    .post(protect, controller.removeProject);
+router.route('/delete/:id')
+    .put(protect, controller.removeProject);
 
 module.exports = router;

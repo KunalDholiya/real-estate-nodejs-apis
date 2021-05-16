@@ -16,7 +16,7 @@ router.route('/')
 router.route('/:id')
     .get(protect, controller.getContactById);
 
-router.route('/:id')
+router.route('/delete/:id')
     .put(protect, controller.deleteContact);
 
 module.exports = router;

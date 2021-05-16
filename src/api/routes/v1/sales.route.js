@@ -16,7 +16,10 @@ router.route('/')
 router.route('/:id')
     .get(protect, controller.getSalesById);
 
-router.route('/:id')
+router.route('/project/:id')
+    .get(protect, controller.getSalesByProjectId);
+
+router.route('/delete/:id')
     .put(protect, controller.deleteSales);
 
 module.exports = router;

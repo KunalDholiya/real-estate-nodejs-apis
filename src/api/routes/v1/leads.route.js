@@ -16,10 +16,10 @@ router.route('/')
 router.route('/:id')
     .get(protect, controller.getLeadById);
 
-router.route('/:id')
+router.route('/delete/:id')
     .put(protect, controller.deleteLead);
 
-router.route('/:id')
+router.route('/status-change/:id')
     .put(protect, controller.leadStageChange);
 
 module.exports = router;
