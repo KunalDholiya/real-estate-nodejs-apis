@@ -116,3 +116,23 @@ exports.deleteSales = (sales_id, parent_id, data, cb) => {
         }
     })
 }
+
+exports.statusChange = (sales_id, parent_id, user_id, data, cb) => {
+    this.getSalesById(sales_id, parent_id, (err, lead_data) => {
+        if (err) {
+            return cb(err);
+        } else {
+            pool.query(
+                "UPDATE `sales` SET `sales_type` = ? WHERE `id` = ? AND `parent_id` = ? AND `status` = ?",
+                [data.sales_type, sales_id, parent_id, "active"],
+                (err, updated) => {
+                    if (err) {
+                        return cb(err);
+                    } else {
+                        return cb(null, "Sales updated successfully!");
+                    }
+                }
+            );
+        }
+    });
+};

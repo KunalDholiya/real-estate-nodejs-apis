@@ -95,3 +95,19 @@ exports.deleteSales = (req, res, next) => {
         return next(error);
     }
 };
+
+exports.salesStatusChange = (req, res, next) => {
+    try {
+        let sales_id = req.params.id;
+
+        salesService.statusChange(sales_id, req.user.parent_id, req.body, (err, data) => {
+            if (err) {
+                return res.status(500).send({ success: false, error: err });
+            } else {
+                return res.json({ success: true, data });
+            }
+        });
+    } catch (error) {
+        return next(error);
+    }
+};

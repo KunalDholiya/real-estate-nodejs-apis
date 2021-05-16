@@ -22,4 +22,7 @@ router.route('/project/:id')
 router.route('/delete/:id')
     .put(protect, controller.deleteSales);
 
+router.route('/status-change/:id')
+    .put(protect, controller.salesStatusChange);
+
 module.exports = router;
