@@ -10,13 +10,7 @@ router.route('/')
 router.route('/:id')
     .put(protect, controller.updateActivity);
 
-router.route('/')
-    .get(protect, controller.getProjects);
-
 router.route('/:id')
-    .get(protect, controller.getProjectById);
-
-router.route('/:id')
-    .post(protect, controller.removeProject);
+    .get(protect, controller.getActivityByLeadId);
 
 module.exports = router;

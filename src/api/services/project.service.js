@@ -1,4 +1,5 @@
 const pool = require('./../../config/sql');
+const utils = require('./../utils/utils')
 
 
 exports.getProjects = (parent_id, user_id, cb) => {
@@ -20,20 +21,11 @@ exports.getProjects = (parent_id, user_id, cb) => {
 }
 
 exports.getProjectById = (project_id, parent_id, cb) => {
-    pool.query('SELECT * FROM `projects` WHERE `id` = ? AND `parent_id` = ? AND `status` = ?', [project_id, parent_id, 'active'], (err, project) => {
+    pool.query('SELECT p.project_logo, p.project_name, p.project_address, p.project_rera_number, pud.contact_id, pud.unit_name, pud.unit_floor, pud.unit_name, pud.unit_status FROM `projects` as p LEFT JOIN `project_unit_details` as pud ON p.id = pud.project_id WHERE p.id = ? AND p.parent_id = ? AND p.status = ?', [project_id, parent_id, 'active'], (err, project) => {
         if (err) {
             return cb(err);
         } else {
             if (project.length > 0) {
-
-                project = project[0];
-                try {
-                    project.project_config = JSON.parse(project.project_config)
-                } catch(e) {
-                    console.error("Project config parsing error: ", e);
-                    return cb('Internal server error!')
-                }
-
                 return cb(null, project);
             } else {
                 return cb('Project does not exist in system!');
@@ -57,12 +49,28 @@ exports.addProject = (data, parent_id, user_id, cb) => {
                 data.project_rera_number,
                 data.project_attachment.length > 0 ? data.project_attachment : null,
                 JSON.stringify(data.project_config)
-            ], (err, data) => {
+            ], (err, inserted) => {
                 if (err) {
                     console.error("Add Project error: ", err);
                     return cb('Internal server error!');
                 } else {
-                    return cb(null, 'Project is configured successfully!');
+                    let project_id = inserted.insertId;
+                    utils.insertUnits(data.project_config, parent_id, project_id, (err, insertComplete) => {
+                        if (err) {
+                            console.error("Add Project error: ", err);
+                            return cb('Internal server error!');
+                        } else {
+                            pool.query("INSERT INTO `project_unit_details` (`parent_id`,`project_id`,`unit_number`,`unit_floor`,`unit_name`) VALUES ?", 
+                            [insertComplete], (err, bulkInsert) => {
+                                if (err) {
+                                    console.error("Add Project error: ", err);
+                                    return cb('Internal server error!');
+                                } else {
+                                    return cb(null, 'Project is configured successfully!');
+                                }
+                            })
+                        }
+                    })
                 }
             });
     } else {
