@@ -1,5 +1,4 @@
 const Joi = require('joi');
-const apiErr = require('./../utils/APIError')
 
 module.exports = {
   // POST /v1/auth/register
@@ -81,9 +80,6 @@ module.exports = {
                 break;
             }
           });
-
-          // return apiErr.errorResponse(errors);
-          // console.log(errors)
 
           return errors;
         }),
