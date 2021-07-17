@@ -7,6 +7,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const routes = require('../api/routes/v1');
 const { logs } = require('./vars');
+const middlewareErrorParser = require("./../api/middleware/ErrorParser");
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(cors());
 
 app.use('/api/v1', routes);
 
+app.use(middlewareErrorParser);
 
 app.get('*', (req, res) => res.status(404).send({
     message: 'Page Not Found',

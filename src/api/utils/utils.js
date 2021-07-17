@@ -11,7 +11,6 @@ exports.insertUnits = (data, parent_id, project_id, cb) => {
             for (let index = 0; index < floor_arr.flat_count; index++) {
 
                 let no = index;
-
                 unit_list.push([
                     parent_id,
                     project_id,
