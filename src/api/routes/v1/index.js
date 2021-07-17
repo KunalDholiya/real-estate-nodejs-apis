@@ -7,6 +7,7 @@ const contactRoutes = require('./contact.route');
 const activityRoutes = require('./activity.route');
 const leadRoutes = require('./leads.route');
 const salesRoutes = require('./sales.route');
+const paymentRoutes = require('./payment.route');
 
 const router = express.Router();
 
@@ -20,5 +21,6 @@ router.use('/contact', contactRoutes);
 router.use('/activity', activityRoutes);
 router.use('/lead', leadRoutes);
 router.use('/sales', salesRoutes);
+router.use('/payment', paymentRoutes);
 
 module.exports = router
