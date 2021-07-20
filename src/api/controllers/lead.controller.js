@@ -96,3 +96,20 @@ exports.leadStageChange = (req, res, next) => {
         return next(error);
     }
 };
+
+exports.getLeadByStage = (req, res, next) => {
+    try {
+        let lead_stage = req.params.stage;
+
+        leadService.getLeadByStage(lead_stage, req.user.parent_id, req.user.id, req.body, (err, data) => {
+            if (err) {
+                return res.status(500).send({ success: false, error: err });
+            } else {
+                return res.json({ success: true, data });
+            }
+        });
+
+    } catch (error) {
+        return next(error);
+    }
+};

@@ -38,6 +38,25 @@ exports.getLeadById = (lead_id, parent_id, cb) => {
     );
 };
 
+exports.getLeadByStage = (lead_stage, parent_id, cb) => {
+    pool.query(
+        "SELECT * FROM `leads` WHERE `lead_stage` = ? AND `parent_id` = ? AND `status` = ?",
+        [lead_stage, parent_id, "active"],
+        (err, lead) => {
+            if (err) {
+                return cb(err);
+            } else {
+                if (lead.length > 0) {
+                    lead = lead[0];
+                    return cb(null, lead);
+                } else {
+                    return cb("Lead does not exist in system!");
+                }
+            }
+        }
+    );
+};
+
 exports.addLead = (data, parent_id, user_id, cb) => {
     pool.query(
         "INSERT INTO `leads` (parent_id, user_id, property_id, first_name, last_name, mobile_number, email, inquiry_date, followup_date, site_visit_date, source_of_promotion, lead_owner, lead_stage, address, alter_mobile_number, fax, birth_date, marriage_date, social_media_links, company, website, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",

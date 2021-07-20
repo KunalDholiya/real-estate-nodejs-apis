@@ -16,6 +16,9 @@ router.route('/')
 router.route('/:id')
     .get(protect, controller.getLeadById);
 
+router.route('/lead-stage/:stage')
+    .get(protect, controller.getLeadByStage);
+
 router.route('/delete/:id')
     .put(protect, controller.deleteLead);
 
