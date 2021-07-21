@@ -59,7 +59,8 @@ exports.getLeadByStage = (lead_stage, parent_id, cb) => {
 
 exports.addLead = (data, parent_id, user_id, cb) => {
     pool.query(
-        "INSERT INTO `leads` (parent_id, user_id, property_id, first_name, last_name, mobile_number, email, inquiry_date, followup_date, site_visit_date, source_of_promotion, lead_owner, lead_stage, address, alter_mobile_number, fax, birth_date, marriage_date, social_media_links, company, website, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO `leads` (parent_id, user_id, property_id, first_name, last_name, mobile_number, email, inquiry_date, followup_date, site_visit_date, source_of_promotion, lead_owner, lead_stage, address, alter_mobile_number, fax, birth_date, marriage_date, social_media_links, company, website, notes)" +
+         " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
             parent_id,
             user_id,
